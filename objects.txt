@@ -1,0 +1,3 @@
+<OBJECT id=x classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" 
+
+<OBJECT id="XJUY7K" type="application/x-oleobject" classid="clsid:52a2aaae-085d-4187-97ea-8c30db990436"
